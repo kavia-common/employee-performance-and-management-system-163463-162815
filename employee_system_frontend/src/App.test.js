@@ -1,17 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import App from './App';
-import { Provider } from 'react-redux';
-import store from './state/store';
-import { BrowserRouter } from 'react-router-dom';
+import { renderWithProviders } from './test-utils';
 
-test('renders login heading', () => {
-  render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  );
-  const heading = screen.getByText(/Sign in/i);
-  expect(heading).toBeInTheDocument();
+test('renders login heading by default', () => {
+  renderWithProviders(<App />, { route: '/auth/login' });
+  expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
 });
